@@ -27,10 +27,17 @@ client.on("messageCreate", (message) => {
       text: "For science!",
       r: true,
     };
+
+    let cowStr;
+    const regex = /```/g;
+    do {
+      cowStr = cowsay.say(opts);
+    } while (cowStr.search(regex) !== -1);
+
     message
       .reply({
         content: `\`\`\`
-      ${cowsay.say(opts)}
+      ${cowStr}
       \`\`\``,
       })
       .then()
