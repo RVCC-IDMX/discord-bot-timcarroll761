@@ -14,17 +14,23 @@ client.on("ready", () => {
 
 client.on("messageCreate", (message) => {
   if (message.content === "ping") {
-    message.reply({
-      content: "pong",
-    });
+    message
+      .reply({
+        content: "pong",
+      })
+      .then(console.log)
+      .catch(console.error);
   }
 
   if (message.content === "cowsay") {
-    message.reply({
-      content: `\`\`\`
+    message
+      .reply({
+        content: `\`\`\`
       ${cowsay.say({ text: "Welcome to the candy shop" })}
       \`\`\``,
-    });
+      })
+      .then(console.log)
+      .catch(console.error);
     message.react("🤖").then(console.log).catch(console.error);
   }
 });
