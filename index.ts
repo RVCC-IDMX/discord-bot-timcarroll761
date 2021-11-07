@@ -1,6 +1,9 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+
 import DiscordJS, { Intents } from "discord.js";
 import dotenv from "dotenv";
-import cowsay, { IOptions } from "cowsay";
+import cowsay from "./utils/cowsay";
 
 dotenv.config();
 
@@ -23,22 +26,9 @@ client.on("messageCreate", (message) => {
   }
 
   if (message.content === "cowsay") {
-    const opts: IOptions = {
-      text: "For science!",
-      r: true,
-    };
-
-    let cowStr;
-    const regex = /```/g;
-    do {
-      cowStr = cowsay.say(opts);
-    } while (cowStr.search(regex) !== -1);
-
     message
       .reply({
-        content: `\`\`\`
-      ${cowStr}
-      \`\`\``,
+        content: `\`\`\`${cowsay()}\`\`\``,
       })
       .then()
       .catch((err) => {
