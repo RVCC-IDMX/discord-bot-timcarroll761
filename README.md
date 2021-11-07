@@ -1,5 +1,5 @@
 # template
 
-![Elementary](https://github.com/RVCC-IDMX/ticket-manager-timcarroll761/images/blob/main/Bot.png?raw=true)
+![Elementary](https://github.com/RVCC-IDMX/discord-bot-timcarroll761/blob/main/images/Bot.png?raw=true)
 
 Made with help from [Cowsay.](https://github.com/piuccio/cowsay)
