@@ -3,10 +3,12 @@
 
 import cowsay, { IOptions } from "cowsay";
 import getRandomInt from "./random";
+import quotes from "./quotes.json";
 
 export default function () {
+  const quoteNum = getRandomInt(0, quotes.length);
   const opts: IOptions = {
-    text: "For science!",
+    text: `${quotes[quoteNum].quote} - ${quotes[quoteNum].author}`,
     r: true,
   };
 
