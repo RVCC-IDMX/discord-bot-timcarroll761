@@ -1,6 +1,6 @@
 import DiscordJS, { Intents } from "discord.js";
 import dotenv from "dotenv";
-import cowsay from "cowsay";
+import cowsay, { IOptions } from "cowsay";
 
 dotenv.config();
 
@@ -23,10 +23,15 @@ client.on("messageCreate", (message) => {
   }
 
   if (message.content === "cowsay") {
+    const opts: IOptions = {
+      text: "For science!",
+      e: "^^",
+      f: "personality-sphere",
+    };
     message
       .reply({
         content: `\`\`\`
-      ${cowsay.say({ text: "Welcome to the candy shop" })}
+      ${cowsay.say(opts)}
       \`\`\``,
       })
       .then(console.log)

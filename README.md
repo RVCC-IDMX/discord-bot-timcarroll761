@@ -1,4 +1,4 @@
-# template
+### An elementary discord bot
 
 ![Elementary](https://github.com/RVCC-IDMX/discord-bot-timcarroll761/blob/main/images/Bot.png?raw=true)
 
