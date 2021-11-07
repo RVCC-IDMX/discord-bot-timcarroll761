@@ -18,15 +18,14 @@ client.on("messageCreate", (message) => {
       .reply({
         content: "pong",
       })
-      .then(console.log)
+      .then()
       .catch(console.error);
   }
 
   if (message.content === "cowsay") {
     const opts: IOptions = {
       text: "For science!",
-      e: "^^",
-      f: "personality-sphere",
+      r: true,
     };
     message
       .reply({
@@ -34,9 +33,16 @@ client.on("messageCreate", (message) => {
       ${cowsay.say(opts)}
       \`\`\``,
       })
-      .then(console.log)
-      .catch(console.error);
-    message.react("🤖").then(console.log).catch(console.error);
+      .then()
+      .catch((err) => {
+        if (err.code === 50035) {
+          message.reply({
+            content:
+              "The selected cow can't be rendered in discord. Please try again.",
+          });
+        }
+      });
+    message.react("🤖").then().catch(console.error);
   }
 });
 client.login(process.env.TOKEN);
