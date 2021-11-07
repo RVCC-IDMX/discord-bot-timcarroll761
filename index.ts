@@ -25,6 +25,7 @@ client.on("messageCreate", (message) => {
       ${cowsay.say({ text: "Welcome to the candy shop" })}
       \`\`\``,
     });
+    message.react("🤖").then(console.log).catch(console.error);
   }
 });
 client.login(process.env.TOKEN);
