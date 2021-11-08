@@ -20,13 +20,15 @@ client.on("messageCreate", (message) => {
   let messageStr = message.content;
   if (messageStr.startsWith(prefix)) {
     messageStr = messageStr.slice(3);
+    // remove the prefix
 
     while (messageStr.startsWith(" ")) {
       messageStr = messageStr.slice(1);
-    }
+    } // remove leading whitespace
 
     const messageWords = messageStr.toLowerCase().split(" ");
     const command = messageWords.shift();
+    // tokenize the message
 
     if (command === "ping") {
       message
@@ -48,19 +50,21 @@ client.on("messageCreate", (message) => {
     }
 
     if (command === "cowsay") {
-      message
-        .reply({
-          content: `\`\`\`${cowsay()}\`\`\``,
-        })
-        .then()
-        .catch((err) => {
-          if (err.code === 50035) {
-            message.reply({
-              content:
-                "The selected cow can't be rendered in discord. Please try again.",
-            });
-          }
-        });
+      cowsay(messageWords.shift()).then((data) => {
+        message
+          .reply({
+            content: `\`\`\`${data}\`\`\``,
+          })
+          .then()
+          .catch((err) => {
+            if (err.code === 50035) {
+              message.reply({
+                content:
+                  "The selected cow can't be rendered in discord. Please try again.",
+              });
+            }
+          });
+      });
       message.react("🤖").then().catch(console.error);
     }
   }
