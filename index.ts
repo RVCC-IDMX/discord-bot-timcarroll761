@@ -7,6 +7,7 @@ import cowsay from "./utils/cowsay";
 
 dotenv.config();
 
+const prefix = process.env.PREFIX || "";
 const client = new DiscordJS.Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
@@ -16,30 +17,52 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", (message) => {
-  if (message.content === "ping") {
-    message
-      .reply({
-        content: "pong",
-      })
-      .then()
-      .catch(console.error);
-  }
+  let messageStr = message.content;
+  if (messageStr.startsWith(prefix)) {
+    messageStr = messageStr.slice(3);
 
-  if (message.content === "cowsay") {
-    message
-      .reply({
-        content: `\`\`\`${cowsay()}\`\`\``,
-      })
-      .then()
-      .catch((err) => {
-        if (err.code === 50035) {
-          message.reply({
-            content:
-              "The selected cow can't be rendered in discord. Please try again.",
-          });
-        }
-      });
-    message.react("🤖").then().catch(console.error);
+    while (messageStr.startsWith(" ")) {
+      messageStr = messageStr.slice(1);
+    }
+
+    const messageWords = messageStr.toLowerCase().split(" ");
+    const command = messageWords.shift();
+
+    if (command === "ping") {
+      message
+        .reply({
+          content: "pong",
+        })
+        .then()
+        .catch(console.error);
+    }
+
+    if (command === "reply") {
+      const replyStr = messageWords.join("\n");
+      message
+        .reply({
+          content: replyStr,
+        })
+        .then()
+        .catch(console.error);
+    }
+
+    if (command === "cowsay") {
+      message
+        .reply({
+          content: `\`\`\`${cowsay()}\`\`\``,
+        })
+        .then()
+        .catch((err) => {
+          if (err.code === 50035) {
+            message.reply({
+              content:
+                "The selected cow can't be rendered in discord. Please try again.",
+            });
+          }
+        });
+      message.react("🤖").then().catch(console.error);
+    }
   }
 });
 client.login(process.env.TOKEN);
